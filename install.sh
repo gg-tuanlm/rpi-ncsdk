@@ -56,15 +56,15 @@ echo "Install OpenCV from source"
 read -n1 -p "Do you want to install OpenCV? [y,[N]]: " doit_cv
 case $doit_cv in
     y|Y)
-    # wget https://raw.githubusercontent.com/movidius/ncappzoo/ncsdk2/apps/video_objects_threaded/install-opencv-from_source.sh;
-    bash ./install-opencv-from_source.sh;
-    echo "OpenCV installed.";;
+        # wget https://raw.githubusercontent.com/movidius/ncappzoo/ncsdk2/apps/video_objects_threaded/install-opencv-from_source.sh;
+        bash ./install-opencv-from_source.sh;
+        echo "OpenCV installed.";;
     *) echo "Skip install OpenCV";;
 esac
 
 echo ""
 echo "************************************************************************"
-echo "Clean up"
+echo "Clean up..."
 sudo rm -rf /home/pi/.cache/package
 sudo rm -rf /root/.cache/pip
 sudo apt autoremove
@@ -75,14 +75,20 @@ sudo apt clean
 echo ""
 echo "************************************************************************"
 echo "Swapoff"
-# sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
-sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile
-sudo dphys-swapfile swapoff
+read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+case $doit_swap in
+    y|Y)
+        # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+        sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        sudo dphys-swapfile swapoff;;
+    *) echo "Keep current swap setting";;
+esac
 
-# shutdown for now
 echo ""
 echo "************************************************************************"
-echo "Shutting down in next 30s..."
-echo "Press Ctrl+C to stop"
-sleep 30
-sudo shutdown now
+read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
+case $doit_shutdown in
+    y|Y)
+        sudo shutdown now;;
+    *) echo "Done.";;
+esac
