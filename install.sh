@@ -1,5 +1,6 @@
-#!/bin/bashecho ""
+#!/bin/bash
 
+echo ""
 echo "************************ Please confirm *******************************"
 echo " Installing NCSDK on Raspberry Pi may take a long time."
 echo " You may skip some parts of the installation in which case some examples "
@@ -80,6 +81,15 @@ case $doit_swap in
     y|Y)
         # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
         sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        # set swap off to decrease backup size
+echo ""
+echo "************************************************************************"
+echo "Swapoff"
+read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+case $doit_swap in
+    y|Y)
+        # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+        sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
         sudo dphys-swapfile swapoff;;
     *) echo "Keep current swap setting";;
 esac
@@ -89,6 +99,117 @@ echo "************************************************************************"
 read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
 case $doit_shutdown in
     y|Y)
+        sudo shutdown now;;
+    *) echo "Done.";;
+esac
+    *) e# set swap off to decrease backup size
+echo ""
+echo "************************************************************************"
+echo "Swapoff"
+read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+case $doit_swap in
+    y|Y)
+        # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+        sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        sudo dphys-swapfile swapoff;;
+    *) echo "Keep current swap setting";;
+esac
+
+echo ""
+echo "************************************************************************"
+read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
+case $doit_shutdown in
+    y|Y)
+        sudo shutdown now;;
+    *) echo "Done.";;
+esac";;
+esac
+
+echo ""
+echo "**# set swap off to decrease backup size
+echo ""
+echo "************************************************************************"
+echo "Swapoff"
+read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+case $doit_swap in
+    y|Y)
+        # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+        sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        sudo dphys-swapfile swapoff;;
+    *) echo "Keep current swap setting";;
+esac
+
+echo ""
+echo "************************************************************************"
+read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
+case $doit_shutdown in
+    y|Y)
+        sudo shutdown now;;
+    *) echo "Done.";;
+esac****************************************"
+read -n1# set swap off to decrease backup size
+echo ""
+echo "************************************************************************"
+echo "Swapoff"
+read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+case $doit_swap in
+    y|Y)
+        # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+        sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        sudo dphys-swapfile swapoff;;
+    *) echo "Keep current swap setting";;
+esac
+
+echo ""
+echo "************************************************************************"
+read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
+case $doit_shutdown in
+    y|Y)
+        sudo shutdown now;;
+    *) echo "Done.";;
+esache system now? [y, [N]]: " doit_shutdown
+case $do# set swap off to decrease backup size
+echo ""
+echo "************************************************************************"
+echo "Swapoff"
+read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+case $doit_swap in
+    y|Y)
+        # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+        sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        sudo dphys-swapfile swapoff;;
+    *) echo "Keep current swap setting";;
+esac
+
+echo ""
+echo "************************************************************************"
+read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
+case $doit_shutdown in
+    y|Y)
+        sudo shutdown now;;
+    *) echo "Done.";;
+esac
+    y|Y)# set swap off to decrease backup size
+echo ""
+echo "************************************************************************"
+echo "Swapoff"
+read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+case $doit_swap in
+    y|Y)
+        # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+        sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        sudo dphys-swapfile swapoff;;
+    *) echo "Keep current swap setting";;
+esac
+
+echo ""
+echo "************************************************************************"
+read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
+case $doit_shutdown in
+    y|Y)
+        sudo shutdown now;;
+    *) echo "Done.";;
+esac
         sudo shutdown now;;
     *) echo "Done.";;
 esac
