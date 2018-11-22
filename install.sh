@@ -18,7 +18,9 @@ sudo apt update && sudo apt upgrade -y
 echo ""
 echo "************************************************************************"
 echo "Increase swap size"
-sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
+# sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
+sudo mv /etc/dphys-swapfile /etc/dphys-swapfile.backup
+echo "CONF_SWAPSIZE=2048" > /etc/dphys-swapfile
 sudo systemctl restart dphys-swapfile.service
 
 echo ""
@@ -73,7 +75,8 @@ sudo apt clean
 echo ""
 echo "************************************************************************"
 echo "Swapoff"
-sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+# sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
+sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile
 sudo dphys-swapfile swapoff
 
 # shutdown for now
