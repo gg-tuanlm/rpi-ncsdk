@@ -84,5 +84,5 @@ echo ""
 echo "************************************************************************"
 echo "Shutting down in next 30s..."
 echo "Press Ctrl+C to stop"
-sleep(30)
+sleep 30
 sudo shutdown now
