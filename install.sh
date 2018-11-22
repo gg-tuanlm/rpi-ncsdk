@@ -25,9 +25,9 @@ echo ""
 echo "************************************************************************"
 echo "Downloading ncsdk..."
 NCSDK_VER=v2.05.00.02
-wget https://github.com/movidius/ncsdk/archive/${NCSDK_VER}.tar.gz
+wget https://github.com/movidius/ncsdk/archive/${NCSDK_VER}.tar.gz --prefix=ncsdk-${NCSDK_VER}
 tar xvzf ${NCSDK_VER}.tar.gz
-cd ncsdk-v${NCSDK_VER}
+cd ncsdk-${NCSDK_VER}
 
 # # disable install caffe by default
 # sed -i 's/INSTALL_CAFFE=yes/INSTALL_CAFFE=no/g' ./ncsdk.conf
