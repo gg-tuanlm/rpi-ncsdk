@@ -7,7 +7,6 @@ sudo apt update && sudo apt upgrade -y
 
 echo "Increase swap size"
 sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
-# sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
 sudo systemctl restart dphys-swapfile.service
 
 echo "Downloading ncsdk..."
@@ -30,7 +29,7 @@ echo "Installing NCSDK..."
 make install
 
 echo "Install OpenCV from source"
-read -n1 -p "Do you want to install OpenCV? [y,[N]]:" doit_cv
+read -n1 -p "Do you want to install OpenCV? [y,[N]]: " doit_cv
 case $doit_cv in
     y|Y)
     # wget https://raw.githubusercontent.com/movidius/ncappzoo/ncsdk2/apps/video_objects_threaded/install-opencv-from_source.sh;
@@ -52,7 +51,7 @@ sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
 sudo dphys-swapfile swapoff
 
 # shutdown for now
-echo "Shuting down in next 30s..."
+echo "Shutting down in next 30s..."
 echo "Press Ctrl+C to stop"
 sleep(30)
 sudo shutdown now
