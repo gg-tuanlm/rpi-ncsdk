@@ -24,9 +24,9 @@ sudo systemctl restart dphys-swapfile.service
 echo ""
 echo "************************************************************************"
 echo "Downloading ncsdk..."
-NCSDK_VER=v2.05.00.02
-wget https://github.com/movidius/ncsdk/archive/${NCSDK_VER}.tar.gz --prefix=ncsdk-${NCSDK_VER}
-tar xvzf ${NCSDK_VER}.tar.gz
+NCSDK_VER=2.05.00.02
+wget https://github.com/movidius/ncsdk/archive/v${NCSDK_VER}.tar.gz --prefix=ncsdk-${NCSDK_VER}
+tar xvzf v${NCSDK_VER}.tar.gz
 cd ncsdk-${NCSDK_VER}
 
 # # disable install caffe by default
