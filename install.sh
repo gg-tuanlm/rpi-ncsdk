@@ -1,33 +1,55 @@
-#!/bin/bash
+#!/bin/bashecho ""
+
+echo "************************ Please confirm *******************************"
+echo " Installing NCSDK on Raspberry Pi may take a long time."
+echo " You may skip some parts of the installation in which case some examples "
+echo " may not work without modifications but the rest of the SDK will still "
+echo " be functional. Select n to skip installation part or y to install it."
+echo ""
+echo "************************************************************************"
 echo "Clean bloatwares"
 sudo apt remove idle* vlc*
 
+echo ""
+echo "************************************************************************"
 echo "Updating system..."
 sudo apt update && sudo apt upgrade -y
 
+echo ""
+echo "************************************************************************"
 echo "Increase swap size"
 sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
 sudo systemctl restart dphys-swapfile.service
 
+echo ""
+echo "************************************************************************"
 echo "Downloading ncsdk..."
 NCSDK_VER=v2.05.00.02
 wget https://github.com/movidius/ncsdk/archive/${NCSDK_VER}.tar.gz
 tar xvzf ${NCSDK_VER}.tar.gz
-cd ncsdk-${NCSDK_VER}
+cd ncsdk-v${NCSDK_VER}
 
 # # disable install caffe by default
 # sed -i 's/INSTALL_CAFFE=yes/INSTALL_CAFFE=no/g' ./ncsdk.conf
 
+echo ""
+echo "************************************************************************"
 echo "Update both python-pip and python3-pip"
 sudo -H -E python -m pip install --upgrade pip
 sudo -H -E python3 -m pip install --upgrade pip
 
+echo ""
+echo "************************************************************************"
 echo "Install prequisite python packages using pre-built repository"
 sudo -H -E python3 -m pip install -r requirements.txt
 
+echo ""
+echo "************************************************************************"
 echo "Installing NCSDK..."
 make install
 
+echo ""
+echo "************************************************************************"
 echo "Install OpenCV from source"
 read -n1 -p "Do you want to install OpenCV? [y,[N]]: " doit_cv
 case $doit_cv in
@@ -38,6 +60,8 @@ case $doit_cv in
     *) echo "Skip install OpenCV";;
 esac
 
+echo ""
+echo "************************************************************************"
 echo "Clean up"
 sudo rm -rf /home/pi/.cache/package
 sudo rm -rf /root/.cache/pip
@@ -46,11 +70,15 @@ sudo apt autoclean
 sudo apt clean
 
 # set swap off to decrease backup size
+echo ""
+echo "************************************************************************"
 echo "Swapoff"
 sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
 sudo dphys-swapfile swapoff
 
 # shutdown for now
+echo ""
+echo "************************************************************************"
 echo "Shutting down in next 30s..."
 echo "Press Ctrl+C to stop"
 sleep(30)
