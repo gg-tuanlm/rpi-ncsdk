@@ -65,9 +65,11 @@ esac
 echo ""
 echo "************************************************************************"
 echo "Clean up"
-sudo rm -rf /home/pi/.cache/package
+cd /home/${USER}
+sudo rm -rf /home/${USER}/rpi-ncsdk
+sudo rm -rf /home/${USER}/.cache/package
 sudo rm -rf /root/.cache/pip
-sudo apt autoremove
+sudo apt autoremove --purge
 sudo apt autoclean
 sudo apt clean
 
