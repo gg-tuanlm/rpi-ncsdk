@@ -1,5 +1,5 @@
 #!/bin/bash
-read -n 1 -p "Do you want to expand rootfs at first boot? [y, [N]]:" doit_resize
+read -p "Do you want to expand rootfs at first boot? [y, [N]]: " doit_resize
 case $doit_resize in
     y|Y)
         sed -i 's/quiet/& init=\/usr\/lib\/raspi-config\/init_resize.sh/g' /media/${USER}/boot/cmdline.txt;

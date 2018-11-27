@@ -1,4 +1,7 @@
 #!/bin/bash
+
+cur_dir=$(pwd)
+
 echo ""
 echo "************************ Please confirm *******************************"
 echo " Installing NCSDK on Raspberry Pi may take a long time."
@@ -7,8 +10,8 @@ echo " may not work without modifications but the rest of the SDK will still "
 echo " be functional. Select n to skip installation part or y to install it."
 echo ""
 echo "************************************************************************"
-echo "Clean bloatwares"
-sudo apt remove idle* vlc*
+echo "Cleaning bloatwares"
+sudo apt remove idle* vlc* libreoffice*
 
 echo ""
 echo "************************************************************************"
@@ -17,11 +20,14 @@ sudo apt update && sudo apt upgrade -y
 
 echo ""
 echo "************************************************************************"
-echo "Increase swap size"
+echo "Increasing swap size"
 # sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
 sudo mv /etc/dphys-swapfile /etc/dphys-swapfile.backup
 echo "CONF_SWAPSIZE=2048" > /etc/dphys-swapfile
-sudo systemctl restart dphys-swapfile.service
+sudo dphys-swapfile swapoff
+sudo dphys-swapfile setup
+sudo dphys-swapfile swapon
+echo "Your swap size is now 2048M"
 
 echo ""
 echo "************************************************************************"
@@ -31,40 +37,35 @@ wget https://github.com/movidius/ncsdk/archive/v${NCSDK_VER}.tar.gz --prefix=ncs
 tar xvzf v${NCSDK_VER}.tar.gz
 cd ncsdk-${NCSDK_VER}
 
-# # disable install caffe by default
-# sed -i 's/INSTALL_CAFFE=yes/INSTALL_CAFFE=no/g' ./ncsdk.conf
-
 echo ""
 echo "************************************************************************"
-echo "Update both python-pip and python3-pip"
+echo "Updating both python-pip and python3-pip"
 sudo -H -E python -m pip install --upgrade pip
 sudo -H -E python3 -m pip install --upgrade pip
 
 echo ""
 echo "************************************************************************"
-echo "Install prequisite python packages using pre-built repository"
+echo "Installing prequisite python packages using pre-built repository"
 sudo -H -E python3 -m pip install -r requirements.txt
 
 echo ""
 echo "************************************************************************"
 echo "Installing NCSDK..."
+echo "Disable Caffe installation by default"
+sed -i 's/INSTALL_CAFFE=yes/INSTALL_CAFFE=no/g' ./ncsdk.conf
 make install
 
-echo ""
-echo "************************************************************************"
-echo "Install OpenCV from source"
-read -n1 -p "Do you want to install OpenCV? [y,[N]]: " doit_cv
-case $doit_cv in
-    y|Y)
-        # wget https://raw.githubusercontent.com/movidius/ncappzoo/ncsdk2/apps/video_objects_threaded/install-opencv-from_source.sh;
-        bash ./install-opencv-from_source.sh;
-        echo "OpenCV installed.";;
-    *) echo "Skip install OpenCV";;
-esac
+# Install Caffe
+cd $cur_dir/bin/Caffe 
+. $cur_dir/bin/Caffe/install.sh
+
+# Install OpenCV
+cd $cur_dir/bin/OpenCV/cv2_3.4.3
+. cd $cur_dir/bin/OpenCV/cv2_3.4.3/install.sh
 
 echo ""
 echo "************************************************************************"
-echo "Clean up"
+echo "Cleaning up"
 cd /home/${USER}
 sudo rm -rf /home/${USER}/rpi-ncsdk
 sudo rm -rf /home/${USER}/.cache/package
@@ -76,22 +77,26 @@ sudo apt clean
 echo ""
 echo "************************************************************************"
 echo "Swapoff"
-read -n1 -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
+read -p "Do you want to turn off system swap? [y,[N]]: " doit_swap
 case $doit_swap in
     y|Y)
         # sudo sed -i 's/CONF_SWAPSIZE=2048/CONF_SWAPSIZE=0/g' /etc/dphys-swapfile
         sudo mv /etc/dphys-swapfile.backup /etc/dphys-swapfile;
+        sudo dphys-swapfile setup;
         sudo dphys-swapfile swapoff;
-        echo "Swap is off";;
-    *) echo "Keep current swap setting";;
+        echo "Swap is now off"
+    ;;
+    *) echo "Keep current swap setting"
+    ;;
 esac
 
-# shutdown for now
 echo ""
 echo "************************************************************************"
-read -n1 -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
+read -p "Do you want to turn off the system now? [y, [N]]: " doit_shutdown
 case $doit_shutdown in
     y|Y)
-        sudo shutdown now;;
-    *) echo "Done.";;
+        sudo shutdown now
+    ;;
+    *) echo "Done."
+    ;;
 esac
