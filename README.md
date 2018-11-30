@@ -10,12 +10,12 @@ Intel® Movidius™ Neural Compute software developer kit (NCSDK) setup for Rasp
 
 ### Installation
 
-1. Fisrt, download and burn [Raspbian Stretch](https://www.raspberrypi.org/downloads/raspbian/) image to your SD card. ([instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md))
+1. Fisrt, download and burn [Raspbian Stretch](http://director.downloads.raspberrypi.org/raspbian/images/raspbian-2018-11-15/2018-11-13-raspbian-stretch.zip) image to your SD card. ([instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md))
 2. Insert SD card into Raspberry Pi and power on
 3. Install NCSDK, follow the instructions below
 
 ```bash
-git clone https://github.com/gg-tuanlm/rpi-ncsdk
+git clone git://gitlab.com/ggml/rpi-ncsdk
 cd rpi-ncsdk
 
 bash ./install.sh
