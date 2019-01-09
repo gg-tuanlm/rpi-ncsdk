@@ -13,6 +13,7 @@ cat <<EOF >> $config_file
 
 # author: Tuan Le
 # project: aicampj
+# reference: https://www.raspberrypi.org/documentation/configuration/config-txt/
 
 EOF
 
