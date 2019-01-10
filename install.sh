@@ -67,10 +67,6 @@ cd $cur_dir/bin/OpenCV/cv2_3.4.3
 cd $cur_dir/
 . $cur_dir/install_zmq.sh
 
-# Configure Firmware
-cd $cur_dir/
-. $cur_dir/config_fw.sh
-
 echo ""
 echo "************************************************************************"
 echo "Cleaning up"
