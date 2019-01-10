@@ -56,12 +56,16 @@ sed -i 's/INSTALL_CAFFE=yes/INSTALL_CAFFE=no/g' ./ncsdk.conf
 make install
 
 # Install Caffe
-cd $cur_dir/bin/Caffe 
+cd $cur_dir/bin/Caffe
 . $cur_dir/bin/Caffe/install.sh
 
 # Install OpenCV
 cd $cur_dir/bin/OpenCV/cv2_3.4.3
 . cd $cur_dir/bin/OpenCV/cv2_3.4.3/install.sh
+
+# Install ZeroMQ
+cd $cur_dir/
+. $cur_dir/install_zmq.sh
 
 # Configure Firmware
 cd $cur_dir/
