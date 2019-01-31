@@ -2,12 +2,14 @@
 
 echo "Firmware configuration Tool"
 config_file=/media/${USER}/boot/config.txt
+etc_modules=/media/${USER}/rootfs/etc/modules
 
 echo ""
 read -p "Disable Wireless LAN? ([Y], n): " doit_disable_wl
 read -p "Disable Bluetooth? ([Y], n): " doit_disable_bt
 read -p "Disable Audio? ([Y], n): " doit_disable_audio
 read -p "GPU memory in megabytes (defaults to 64): " gpu_mem
+read -p "Enable camera with v4l2 driver bcm2835-v4l2 ([Y], n): " doit_camera
 
 cat <<EOF >> $config_file
 
@@ -38,6 +40,14 @@ cat <<EOF >> $config_file
 
 # Disable Audio
 dtparam=audio=off
+EOF
+fi
+
+if [[ "$doit_camera" == "" || "$doit_camera" == "y" || "$doit_camera" == "Y" ]]; then
+cat <<EOF >> $etc_modules
+
+# Camera with v4l2 driver
+bcm2835-v4l2
 EOF
 fi
 

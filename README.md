@@ -64,6 +64,7 @@ Disable Wireless LAN? ([Y], n): y
 Disable Bluetooth? ([Y], n): y
 Disable Audio? ([Y], n): y
 GPU memory in megabytes (defaults to 64): 128
+Enable camera with v4l2 driver bcm2835-v4l2 ([Y], n): y
 Done!
 ```
 
