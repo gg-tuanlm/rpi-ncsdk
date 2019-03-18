@@ -117,7 +117,7 @@ export PYTHONPATH="${PYTHONPATH}:/opt/movidius/caffe/python"
 
 if [ ! -f ~/.inputrc ]
 then
-echo "Not found, create new ~/.inputrc..."
+echo "Not found, creating..."
 cat <<EOF > ~/.inputrc
 \$include /etc/inputrc
 # enable search backward/forward through bash history
@@ -191,7 +191,9 @@ alias camos_recognizer="sudo journalctl -u camos_recognizer.service -f | ccze"
 alias camos_app="watch -d -n 1 camos -a"
 
 camos_config () {
-	if [ $# -ge 0 ]
+	echo $0:$# $1 $2
+
+	if [ ! $# -ge  0 ]
 	then
 		camos -c
 	else
