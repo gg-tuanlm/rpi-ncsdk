@@ -2,7 +2,12 @@
 
 echo "Firmware configuration Tool"
 config_file=/media/${USER}/boot/config.txt
+<<<<<<< HEAD
 etc_modules=/media/${USER}/etc/modules
+||||||| merged common ancestors
+=======
+etc_modules=/media/${USER}/rootfs/etc/modules
+>>>>>>> 2190622c16ac75c3a0d9d34ae6dd62ef16eb8b11
 
 echo ""
 read -p "Disable Wireless LAN? ([Y], n): " doit_disable_wl
