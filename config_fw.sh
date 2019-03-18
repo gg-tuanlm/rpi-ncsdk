@@ -44,7 +44,7 @@ EOF
 fi
 
 if [[ "$doit_camera" == "" || "$doit_camera" == "y" || "$doit_camera" == "Y" ]]; then
-cat <<EOF >> $etc_modules
+cat <<EOF | sudo tee -a $etc_modules > /dev/null
 
 # Camera with v4l2 driver
 bcm2835-v4l2
