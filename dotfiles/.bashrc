@@ -191,12 +191,6 @@ alias camos_recognizer="sudo journalctl -u camos_recognizer.service -f | ccze"
 alias camos_app="watch -d -n 1 camos -a"
 
 camos_config () {
-	echo $0:$# $1 $2
-
-	if [ ! $# -ge  0 ]
-	then
-		camos -c
-	else
-		camos -c --key=$1 --value=$2
-	fi
+	camos -c --key=$1 --value=$2
 }
+
