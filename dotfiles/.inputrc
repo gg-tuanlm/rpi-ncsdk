@@ -1,0 +1,19 @@
+$include /etc/inputrc
+# enable search backward/forward through bash history
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# This line sets the completions to be listed immediately instead of ringing the bell, when the completing word has more than one possible completion.
+set show-all-if-ambiguous on
+
+# This line sets the completions to be listed immediately instead of ringing the bell, when the completing word has more than one possible completion but no partial completion can be made.
+set show-all-if-unmodified on
+
+# performs filename matching and completion in a case-insensitive fashion
+set completion-ignore-case on
+
+set completion-prefix-display-length 3
+set mark-symlinked-directories on
+
+# This line sets readline to display possible completions using different colors to indicate their file types.
+set colored-stats on
