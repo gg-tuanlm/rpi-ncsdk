@@ -22,6 +22,8 @@ echo ""
 echo "************************************************************************"
 echo "Prerequisites..."
 sudo apt install git vim htop byobu -y
+echo "Install RNG-TOOLS to prevent SSL error"
+sudo apt install rng-tools -y
 
 echo ""
 echo "************************************************************************"

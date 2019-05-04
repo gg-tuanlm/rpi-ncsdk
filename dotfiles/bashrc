@@ -112,10 +112,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# VARIABLES
-##############################################################################
-export mac_address=$(ifconfig -a | grep -E "ether.*(Ethernet)" | awk '{print $2}')
-
 # caffe
 export PYTHONPATH="${PYTHONPATH}:/opt/movidius/caffe/python"
 
@@ -148,8 +144,11 @@ set colored-stats on
 EOF
 fi
 
+# byobu attach -t testing
+# byobu-tmux new -n 'Window name' -s testing
+
 # camos multi-screen monitor
-monitor ()  {
+monitor ()  {	
 	if [ -z $1 ]
 	then
 		session=$USER
@@ -164,35 +163,33 @@ monitor ()  {
 		byobu-tmux split-window -h
 		byobu-tmux select-pane -t 0
 		byobu-tmux split-window -v
-
+		
 		# pane 0: sender service logs
 		byobu-tmux select-pane -t 0
 		byobu-tmux send-keys 'camos_sender' 'C-m'
-
+		
 		# pane 1: apps information
 		byobu-tmux select-pane -t 1
 		byobu-tmux send-keys 'camos_app' 'C-m'
-
+		
 		# pane 2: subscriber service logs
 		byobu-tmux select-pane -t 2
 		byobu-tmux send-keys 'camos_subscriber' 'C-m'
-
+		
 		# Create new window for other tasks
 		byobu-tmux new-window
 		byobu-tmux rename-window 'Working terminals'
 	fi
-
+		
 	# enter working session
 	byobu-tmux attach -t $session
 }
 
-# ALIASES
-##############################################################################
+# python shortcuts
 alias python="python3"
 alias pip="python3 -m pip"
 alias vi=vim
 alias top=htop
-alias rpi-temp="watch -d -n 1 /opt/vc/bin/vcgencmd measure_temp"
 
 # camos shortcuts
 alias camos_subscriber="sudo journalctl -u camos_subscriber.service -f | ccze"
@@ -206,19 +203,13 @@ alias camos_publisher="sudo journalctl -u camos_publisher.service -f | ccze"
 alias camos_app="watch -d -n 1 camos -a"
 
 camos_service () {
-	if [ -z $1 ]
-	then
-		action=status
-	else
-		action=$1
-	fi
-
 	for service in camos_{sender,loader,subscriber,starter,updater,monitor,recognizer,publisher};
 	do
-		sudo systemctl $action $service;
+		sudo systemctl $1 $service;
 	done
 }
 
 camos_config () {
 	camos -c --key=$1 --value=$2
 }
+
